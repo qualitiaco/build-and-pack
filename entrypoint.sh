@@ -30,7 +30,7 @@ cd ${tmp_dir}
 ln -s ${OUTPUT_PATH} ${BIN_DIR}
 
 echo Building ${BUILD_SH}
-OUTPUT_PATH=${OUTPUT_PATH} ./${BUILD_SH}
+OUTPUT_PATH=${OUTPUT_PATH} bash -x ./${BUILD_SH}
 
 echo Copying related libraries
 cd ${OUTPUT_PATH}
