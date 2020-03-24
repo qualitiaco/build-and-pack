@@ -55,3 +55,12 @@ docker run -it --rm -v $(pwd)/src:/src -v $(pwd)/output:/output qualitiaco/lambd
 
 
 ## Use as github action
+
+### Workflow
+```
+- uses: qualitiaco/action-lambda-build-pack@v1
+  with:
+    src-path: src
+    build-sh: build.sh
+    output-path: output
+```
