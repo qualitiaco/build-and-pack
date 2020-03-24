@@ -47,15 +47,22 @@ for prog in *; do
     for lib in ${libs}; do
         if [ ! -z "${lib}" ]; then
             echo $lib
+            if [ -L $lib ]; then  # symbolic link
+                target=$(readlink $lib)
+                if echo ${target} | grep -q '^../../lib64/'; then
+                    target=${target:12}
+                    ln -sf ${target} lib/$(basename ${lib})
+                    continue
+                fi
+            fi
             cp -a ${lib}* lib/
         fi
     done
 done
 
 echo Changing library to runtime environment
-rm /lib64
+rm -rf /lib64 /usr/lib64
 /sbin/sln /lib64.runtime /lib64
-mv /usr/lib64 /usr/lib64.org
 rm -rf /etc/ld.so.*
 
 echo Removing system libraries
