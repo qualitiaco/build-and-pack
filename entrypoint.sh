@@ -133,4 +133,4 @@ main() {
     ls -laR
 }
 
-main
+main "$*"
