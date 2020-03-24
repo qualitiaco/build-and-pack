@@ -35,11 +35,10 @@ OUTPUT_PATH=${OUTPUT_PATH} bash -x ./${BUILD_SH}
 echo Copying related libraries
 cd ${OUTPUT_PATH}
 mkdir -p lib
-for prog in *; do
-    if [ _${prog} = _lib ]; then
+for prog in $(find . -type f); do
+    if [ -L ${prog} ]; then
         continue
     fi
-
     libs=$(ldd $prog | grep '=>' | grep -v 'not found' | cut -d' ' -f3 | sed 's/\.so\..*/\.so/')
     if [ -z "${libs}" ]; then
         continue
@@ -66,11 +65,13 @@ rm -rf /lib64 /usr/lib64
 rm -rf /etc/ld.so.*
 
 echo Removing system libraries
-for prog in *; do
-    if [ _${prog} = _lib ]; then
+for prog in $(find . -type f); do
+    if [ -L ${prog} ]; then
         continue
     fi
-
+    if [ ! -e ${prog} ]; then
+        continue
+    fi
     libs=$(ldd $prog | grep '=>' | grep -v 'not found' | cut -d' ' -f3 | sed 's/\.so\..*/\.so/')
     if [ -z "${libs}" ]; then
         continue
