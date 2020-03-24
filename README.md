@@ -64,3 +64,9 @@ docker run -it --rm -v $(pwd)/src:/src -v $(pwd)/output:/output qualitiaco/lambd
     build-sh: build.sh
     output-path: output
 ```
+
+## Samples
+
+Sample code is in
+
+    https://github.com/qualitiaco/action-lambda-build-pack-sample
