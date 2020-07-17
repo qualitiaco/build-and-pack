@@ -110,6 +110,7 @@ main() {
     rm -rf /lib64 /usr/lib64
     /sbin/sln /lib64.runtime /lib64
     rm -rf /etc/ld.so.*
+    rm -rf /usr/local /opt
 
     disp "Removing system libraries"
     for prog in $(find . -type f); do
